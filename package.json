@@ -1,0 +1,25 @@
+{
+  "name": "marech",
+  "version": "1.0.0",
+  "description": "Html Pre-Compiler",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antunesrodrigues/marech.git"
+  },
+  "author": "Gabriel Rodrigues (https://github.com/antunesrodrigues)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antunesrodrigues/marech/issues"
+  },
+  "homepage": "https://github.com/antunesrodrigues/marech#readme",
+  "devDependencies": {
+    "eslint": "^5.12.0"
+  },
+  "dependencies": {
+    "glob": "^7.1.3"
+  }
+}
