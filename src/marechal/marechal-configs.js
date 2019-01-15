@@ -28,12 +28,12 @@ const mergeConfigs = (userConfigs) => {
   return mergedConfigs;
 };
 
-const resolveConfig = (config) => {
+const resolveConfig = (config, dir = './') => {
   let resolvedConfigs = JSON.parse(JSON.stringify(config));
 
-  resolvedConfigs.telegs.path = path.resolve(resolvedConfigs.telegs.path);
-  resolvedConfigs.input.path = path.resolve(resolvedConfigs.input.path);
-  resolvedConfigs.output = path.resolve(resolvedConfigs.output);
+  resolvedConfigs.telegs.path = path.join(path.resolve(dir), resolvedConfigs.telegs.path);
+  resolvedConfigs.input.path = path.join(path.resolve(dir), (resolvedConfigs.input.path));
+  resolvedConfigs.output = path.join(path.resolve(dir), resolvedConfigs.output);
   
   return resolvedConfigs;
 };

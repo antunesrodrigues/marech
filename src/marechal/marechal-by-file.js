@@ -14,16 +14,17 @@ const byFile = (file, relativeConfigs, resolvedConfigs) => {
   return finalData;
 };
 
-const byFileAndCreate = (file, relativeConfigs, resolvedConfigs) => {
+const byFileAndCreate = (workDir, file, relativeConfigs, resolvedConfigs) => {
   const finalData = byFile(file, relativeConfigs, relativeConfigs);
 
   // Get file name
-  const fileName = file.replace(relativeConfigs.input.path, '');
+  const fileName = path.join(file).replace(path.join(workDir, relativeConfigs.input.path), '');
   // Get full patch
-  const finalFileName = path.join(resolvedConfigs.output, fileName);
+  const finalFileName = path.join(resolvedConfigs.output, path.normalize(fileName));
 
   // Create folder if not exists
-  marechalUtil.createPath(path.parse(finalFileName).dir);
+
+  marechalUtil.createPath(path.parse(finalFileName).workDir);
 
   // Create final file
   marechalUtil.createFile(finalFileName, finalData);
