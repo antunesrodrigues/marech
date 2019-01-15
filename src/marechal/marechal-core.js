@@ -1,6 +1,7 @@
 function marech_core(telegHtml, args) {
-  // Remove marech definition
-  const telegWithoutMarech = telegHtml.replace(/<Marech(.*)>/i, '').trimLeft();
+  // // Remove marech definition
+  // const telegWithoutMarech = telegHtml.replace(/<Marech(.*)>/i, '').trimLeft();
+  const telegWithoutMarech = telegHtml;
   
   // Define final teleg
   let finalTeleg = telegWithoutMarech;

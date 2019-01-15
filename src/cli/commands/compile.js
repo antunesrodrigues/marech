@@ -38,13 +38,18 @@ const compile = (program) => {
       const resolvedConfigs = marechalConfigs.resolveConfig(relativeConfigs, workDir);
 
       // Get all files matched by input
-
       glob(path.join(workDir, relativeConfigs.input.path, relativeConfigs.input.files), {ignore: path.join(workDir, relativeConfigs.telegs.path, '/**/*.html')}, (err, files) => {
         if(err) throw err;
-        // Go to each input file
+        
+        // Go to each input file 
         files.forEach((file) => {
+          // console.log(resolvedConfigs);
           marechalByFile.byFileAndCreate(workDir, file, relativeConfigs, resolvedConfigs);
+          
+          const onlyFileName = path.relative(relativeConfigs.input.path, file);
+          console.info(`${onlyFileName} - OK!`);
         });
+        console.info(`\nOutput: ${relativeConfigs.output}`);
       });
     });
 };

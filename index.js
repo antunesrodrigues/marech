@@ -1,14 +1,21 @@
 #!/usr/bin/env node
 
 // Required libs
+const path = require('path');
+const info = require(path.join(__dirname, 'package.json'));
+
 const program = require('commander');
 const cliCommands = require('./src/cli/cli');
 
 
 // Initialize cli
+let plusDesc = 
+`
+Gabriel Rodrigues, 2019
+`;
 program
-  .version('1.0.0')
-  .description('HTML Pre-compiler');
+  .version(info.version)
+  .description(`Marech v${info.version}${plusDesc}`);
 
 
 // Each cli-command are on cliCommands

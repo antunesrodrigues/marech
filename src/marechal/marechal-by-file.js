@@ -23,7 +23,7 @@ const byFileAndCreate = (workDir, file, relativeConfigs, resolvedConfigs) => {
   const finalFileName = path.join(resolvedConfigs.output, path.normalize(fileName));
 
   // Create folder if not exists
-  marechalUtil.createPath(path.parse(finalFileName).workDir);
+  marechalUtil.createPath(path.parse(finalFileName).dir);
 
   // Create final file
   marechalUtil.createFile(finalFileName, finalData);
