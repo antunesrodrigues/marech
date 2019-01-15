@@ -1,18 +1,26 @@
 #!/usr/bin/env node
 
-// Required
+// Required libs
 const program = require('commander');
-// Marech 
 const cliCommands = require('./src/cli/cli');
+
 
 // Initialize cli
 program
-  .version('1.0.0');
+  .version('1.0.0')
+  .description('HTML Pre-compiler');
 
-// Import cli commands to work 
+
+// Each cli-command are on cliCommands
+// Import to use on program
 cliCommands.init(program);
 cliCommands.compile(program);
 
 
-// Use args to cli work
+// Use args to cli
 program.parse(process.argv);
+
+// If no command specified
+if (!process.argv.slice(2).length) {
+  program.outputHelp();
+}

@@ -4,7 +4,7 @@
   "description": "Html Pre-Compiler",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint"
+    "lint": "eslint *.js"
   },
   "devDependencies": {
     "eslint": "^5.12.0"
@@ -15,7 +15,7 @@
     "inquirer": "^6.2.1"
   },
   "bin": {
-    "marech": "./index.js"
+    "marech": "./bin/marech.js"
   },
   "repository": {
     "type": "git",

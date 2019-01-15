@@ -1,6 +1,7 @@
+const path = require('path');
 const inquirer = require('inquirer');
 
-const utilFile = require('../../../lib/utilities/file');
+const marechalUtil = require('../../../lib/util');
 const marechalConfigs = require('../../marechal/marechal-configs');
 
 const questions = [
@@ -40,14 +41,29 @@ const init = (program) => {
     .command('init [dir]')
     .alias('i')
     .description('Initialize marech')
-    .action(() => {
-      inquirer
-        .prompt(questions)
-        .then(answers => {
-          const configs = marechalConfigs.simpleConfig(answers);
+    .option('-y, --yes', 'Use default answers')
+    .action(async (dir, opt) => {
+      let configs = marechalConfigs.defaultConfigs;
+      let filename = 'marechal-config';
+      let workDir = './';
 
-          utilFile.createFile(answers.filename + '.js', configs, true);
-        });
+      if(dir) {
+        if(marechalUtil.createPath(path.resolve(dir))) {
+          workDir = dir;
+        }
+      } else {
+        workDir = path.resolve(workDir);
+      }
+
+      if(!opt.yes) {
+        await inquirer.prompt(questions)
+          .then(answers => {
+            configs = marechalConfigs.simpleConfig(answers); 
+            filename = answers.filename;           
+          });
+      }
+
+      marechalUtil.createFile(path.join(workDir, filename + '.js'), configs, true);
     });
 };
 
