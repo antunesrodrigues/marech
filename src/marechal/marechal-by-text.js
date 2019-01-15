@@ -2,7 +2,7 @@
 const path = require('path');
 
 // MarechalLibs
-const marechalUtil = require('./util');
+const marechalUtil = require('../../lib/util');
 const marechalCore = require('./marechal-core');
 
 function marechalByData(originalData, configs) {

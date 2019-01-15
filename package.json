@@ -6,6 +6,17 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint"
   },
+  "devDependencies": {
+    "eslint": "^5.12.0"
+  },
+  "dependencies": {
+    "commander": "^2.19.0",
+    "glob": "^7.1.3",
+    "inquirer": "^6.2.1"
+  },
+  "bin": {
+    "marech": "./index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/antunesrodrigues/marech.git"
@@ -15,11 +26,5 @@
   "bugs": {
     "url": "https://github.com/antunesrodrigues/marech/issues"
   },
-  "homepage": "https://github.com/antunesrodrigues/marech#readme",
-  "devDependencies": {
-    "eslint": "^5.12.0"
-  },
-  "dependencies": {
-    "glob": "^7.1.3"
-  }
+  "homepage": "https://github.com/antunesrodrigues/marech#readme"
 }
