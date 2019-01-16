@@ -19,15 +19,13 @@ function marechalByData(originalData, configs) {
       // Text after MarechTag definition
       const afterTag = marechalUtil.match.after(finalData, match);
       
-
+      
       // Teleg name
       const name = marechalUtil.nameOrProps('name', match[0]);
       
       // Properties definition
-      const props = marechalUtil.nameOrProps('props', match[0]);
-
-      const args = marechalUtil.attrToObj(props);
-
+      const props = marechalUtil.nameOrProps('props', match[0]);      
+      
       let telegFile;
       if(configs.telegs.filesByTelegName) {
         telegFile = `${name}.html`;
@@ -39,8 +37,12 @@ function marechalByData(originalData, configs) {
           }
         });
       }
+      
+      const originalMarechTeleg = marechalUtil.readFile(path.join(configs.telegs.path, telegFile));
+      // console.log(match);
+      
+      const {marechTeleg, args} = marechalUtil.propFunctions(originalMarechTeleg, props);
 
-      const marechTeleg = marechalUtil.readFile(path.join(configs.telegs.path, telegFile));
       const mareched = marechalCore(marechTeleg, args);
 
       finalData = beforeTag + mareched + afterTag;
