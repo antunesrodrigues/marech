@@ -15,9 +15,9 @@ function marechalByData(originalData, configs) {
     let match;
     while((match = marechExp.exec(finalData)) !== null) {
       // Text before MarechTag definition
-      const beforeTag = marechalUtil.match.before(finalData, match);
+      const beforeTag = marechalUtil.matchFunctions.before(finalData, match);
       // Text after MarechTag definition
-      const afterTag = marechalUtil.match.after(finalData, match);
+      const afterTag = marechalUtil.matchFunctions.after(finalData, match);
       
       
       // Teleg name
@@ -48,6 +48,9 @@ function marechalByData(originalData, configs) {
       finalData = beforeTag + mareched + afterTag;
     }
   }
+
+
+  finalData = finalData.replace(/\n {3,}\n/g, '\n');
 
   return finalData;
 }
