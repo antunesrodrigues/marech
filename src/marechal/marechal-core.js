@@ -1,5 +1,3 @@
-
-
 const marechCore = (telegHtml, args) => {
   // // Remove marech definition
   // const telegWithoutMarech = telegHtml.replace(/<Marech(.*)>/i, '').trimLeft();

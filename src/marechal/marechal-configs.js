@@ -1,4 +1,6 @@
+// Required libs
 const path = require('path');
+
 
 const defaultConfigs = (input = 'src', output = 'dist', teleg = 'src/marech') => {
   const configs = {
