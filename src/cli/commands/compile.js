@@ -1,9 +1,10 @@
+// Required libs
 const path = require('path');
 const glob = require('glob');
-
 const marechalUtil = require('../../../lib/util');
 const marechalConfigs = require('../../marechal/marechal-configs');
 const marechalByFile = require('../../marechal/marechal-by-file');
+
 
 const compile = (program) => {
   program
@@ -27,9 +28,9 @@ const compile = (program) => {
         workDir = path.resolve(workDir);
       }
 
+      // Convert relative path to real path. Like marechal-config -> C:\path\to\marechal-config.js
       const resolvedConfigFile = path.join(process.cwd(), configFile);
-      
-      // MarechalFiles
+      // Import user configs
       const userConfigs = marechalUtil.requireFile(resolvedConfigFile);
 
       // Configs with relative path's
@@ -43,12 +44,14 @@ const compile = (program) => {
         
         // Go to each input file 
         files.forEach((file) => {
-          // console.log(resolvedConfigs);
+          // Use marechal to file
           marechalByFile.byFileAndCreate(workDir, file, relativeConfigs, resolvedConfigs);
           
+          // Get relative filename from current dir
           const onlyFileName = path.relative(relativeConfigs.input.path, file);
           console.info(`${onlyFileName} - OK!`);
         });
+        // Send output dir
         console.info(`\nOutput: ${relativeConfigs.output}`);
       });
     });

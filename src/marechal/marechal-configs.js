@@ -1,6 +1,9 @@
 // Required libs
 const path = require('path');
 
+const defaultNames = {
+  filename: 'marechal-config'
+};
 
 const defaultConfigs = (input = 'src', output = 'dist', teleg = 'src/marech') => {
   const configs = {
@@ -44,6 +47,8 @@ const resolveConfig = (config, dir = './') => {
 
 
 module.exports = {
+  defaultNames,
+  
   defaultConfigs,
   simpleConfig,
 
