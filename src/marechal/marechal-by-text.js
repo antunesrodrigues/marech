@@ -9,7 +9,7 @@ const marechalByData = (originalData, configs) => {
   let finalData = originalData;
   
   // Go to each <Marech@...> tag
-  const marechExp = /<Marech@(([^](?!<))*)>/gi;
+  const marechExp = util.regExp.marechTag;
 
   while(finalData.match(marechExp) !== null) {
     // By eslint, 'match' need be defined
@@ -40,11 +40,10 @@ const marechalByData = (originalData, configs) => {
 
 
       // Split to content and args
-      const {marechTeleg, args} = util.marechHelpers.execObj(originalMarechTeleg, props, preProps);
-
+      const {marechTeleg, args, defaultTelegArgs} = util.marechHelpers.execObj(originalMarechTeleg, props, preProps);
 
       // MarechalCORE
-      const mareched = marechalCore(marechTeleg, args);
+      const mareched = marechalCore(marechTeleg, args, defaultTelegArgs);
 
       // Replace the <Marech@...> to imported teleg
       finalData = beforeTag + mareched + afterTag;

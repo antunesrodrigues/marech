@@ -1,45 +1,49 @@
-Marech é um pré-compilador de HTML, que permite dividir seu código (por enquanto) :)
+Marech é um pré-compilador de HTML, que permite dividir seu código e utilizar retornos JS (por enquanto) XD
 
-## 🛎️ How to Install
-1.  Install and Start
-  ```sh
-  # COMING SOON -> Install Marech CLI globally
-  npm install marech -g 
+## 💽 How to Install
+  1.  Install and Start
+    ```sh
+    # COMING SOON -> Install Marech CLI globally
+    \# npm install marech -g 
 
-  # Start marech 
-  marech init
-  ```
+    # Start marech 
+    $ marech init
+    ```
 
-## 🏹 Sample code
-  ```sh
-  # Compile and create final file
-  marech compile
-  ```
+## 🔩 Get's started
+  -  Create marech files
+    You need marech-config.js into your project, created by [`marech init`](#️-how-to-install)
+
+  -  Create final file(s)
+    ```sh
+    # Compile and create final file(s)
+    $ marech compile
+    ```
 
 ## 🔥 Mini Developer-Guide
-  ### Local changes at global package
+  ### Local changes at "global" package
   ```sh
   # Clone this repository
-  git clone https://github.com/antunesrodrigues/marech.git
+  $ git clone https://github.com/antunesrodrigues/marech.git
 
   # Go to marech folder
-  cd marech
+  $ cd marech
   
   # Emulate "npm install marech -g"
-  npm link
+  \# npm link
   # Install required packages
-  npm install
+  $ npm install
   ```
 
   Now, just use
   ```sh
-  marech [...]
+  $ marech [...]
   ```
 
 
 
 ## 🤝 Contribute
-Please send issues, share to friends, improve the source-code (and send a pull-requrest lol) etc
+Please send issues, share to friends, improve the source-code (and send a pull-requests) etc
 
 
 ## 📝License
