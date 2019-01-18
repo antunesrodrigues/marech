@@ -1,3 +1,5 @@
+const resolveFunction = require('../../lib/functions/function-js');
+
 const marechCore = (telegHtml, args, defaultArgs = {}) => {
   const telegWithoutMarech = telegHtml;
   
@@ -17,6 +19,12 @@ const marechCore = (telegHtml, args, defaultArgs = {}) => {
     }
   }
   
+  const rjs = finalTeleg.match(/JS\(([^](?!(>)))*\)/g);
+  if(rjs) {
+    rjs.forEach(e => {
+      finalTeleg = finalTeleg.replace(e, resolveFunction(e));
+    });
+  }
   return finalTeleg;
 };
 

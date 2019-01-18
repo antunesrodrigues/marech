@@ -38,9 +38,9 @@ const marechalByData = (originalData, configs) => {
       // Read the teleg
       const originalMarechTeleg = util.disk.file.readFile(path.join(configs.telegs.path, telegFile));
 
-
       // Split to content and args
       const {marechTeleg, args, defaultTelegArgs} = util.marechHelpers.execObj(originalMarechTeleg, props, preProps);
+
 
       // MarechalCORE
       const mareched = marechalCore(marechTeleg, args, defaultTelegArgs);
