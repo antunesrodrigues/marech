@@ -25,7 +25,7 @@ const byFileAndCreate = (workDir, file, relativeConfigs, resolvedConfigs) => {
   util.disk.folder.createPath(path.parse(finalFileName).dir);
 
   // Create final file
-  util.dist.file.createFile(finalFileName, finalData);
+  util.disk.file.createFile(finalFileName, finalData);
 };
 
 module.exports = {

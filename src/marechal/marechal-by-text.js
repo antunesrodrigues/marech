@@ -7,24 +7,23 @@ const marechalCore = require('./marechal-core');
 const marechalByData = (originalData, configs) => {
   // Keep original data and set it to another
   let finalData = originalData;
-
-  // Go to each <Marech@...> tag
-  const marechExp = /<Marech@([^(?!<)]*)>/gi;
   
+  // Go to each <Marech@...> tag
+  const marechExp = /<Marech@(([^](?!<))*)>/gi;
+
   while(finalData.match(marechExp) !== null) {
     // By eslint, 'match' need be defined
     let match;
     while((match = marechExp.exec(finalData)) !== null) {
       // Normalize if user use break-line inside marech tag
-      match[0] = match[0].replace(/(\n| {2,})/g, ' ');
-      
+      match[0] = match[0].replace(/(\r|\t|\n| {2,})/g, ' ');
+
       // Text before MarechTag definition
-      const beforeTag = util.marechHelpers.execObj.before(finalData, match);
+      const beforeTag = util.marechHelpers.beforeAndAfterMatch.before(finalData, match);
       // Before tag + tag
       const beforeAndTag  = beforeTag + match[0];
       // Text after MarechTag definition
-      const afterTag = util.marechHelpers.execObj.after(finalData, match);
-      
+      const afterTag = util.marechHelpers.beforeAndAfterMatch.after(finalData, match);
       
       // Get Teleg name
       const name = util.marechHelpers.nameOrProps('name', match[0]);
