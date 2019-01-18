@@ -1,7 +1,7 @@
 // Required libs
 const path = require('path');
 const inquirer = require('inquirer');
-const marechalUtil = require('../../../lib/util');
+const util = require('../../../lib/all');
 const marechalConfigs = require('../../marechal/marechal-configs');
 
 // Questions to user
@@ -54,7 +54,7 @@ const init = (program) => {
       // Verify if isset 'dir' command
       if(dir) {
         // Create path if not exists
-        if(marechalUtil.createPath(path.resolve(dir))) {
+        if(util.disk.folder.createPath(path.resolve(dir))) {
           workDir = dir;
         }
       } else {
@@ -73,7 +73,7 @@ const init = (program) => {
       }
 
       // Export and create config file
-      marechalUtil.createFile(path.join(workDir, filename + '.js'), configs, true);
+      util.disk.file.createFile(path.join(workDir, filename + '.js'), configs, true);
     });
 };
 

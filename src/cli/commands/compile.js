@@ -1,7 +1,7 @@
 // Required libs
 const path = require('path');
 const glob = require('glob');
-const marechalUtil = require('../../../lib/util');
+const util = require('../../../lib/all');
 const marechalConfigs = require('../../marechal/marechal-configs');
 const marechalByFile = require('../../marechal/marechal-by-file');
 
@@ -21,7 +21,7 @@ const compile = (program) => {
       }
       
       if(dir) {
-        if(marechalUtil.existsPath(path.resolve(dir))) {
+        if(util.disk.folder.existsPath(path.resolve(dir))) {
           workDir = dir;
         }
       } else {
@@ -31,7 +31,7 @@ const compile = (program) => {
       // Convert relative path to real path. Like marechal-config -> C:\path\to\marechal-config.js
       const resolvedConfigFile = path.join(process.cwd(), configFile);
       // Import user configs
-      const userConfigs = marechalUtil.requireFile(resolvedConfigFile);
+      const userConfigs = util.disk.file.requireFile(resolvedConfigFile);
 
       // Configs with relative path's
       const relativeConfigs = marechalConfigs.mergeConfigs(userConfigs);

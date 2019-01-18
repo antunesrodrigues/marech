@@ -1,13 +1,12 @@
 // Required libs
 const path = require('path');
-const marechalUtil = require('../../lib/util');
+const util = require('../../lib/all');
 const marechalByText = require('./marechal-by-text');
 
-
+// Marech by file
 const byFile = (file, relativeConfigs, resolvedConfigs) => {
   // Read file content
-  const originalData = marechalUtil.readFile(path.resolve(file));
-    
+  const originalData = util.disk.file.readFile(path.resolve(file));
   // Marech it
   const finalData = marechalByText(originalData, resolvedConfigs);
   
@@ -23,10 +22,10 @@ const byFileAndCreate = (workDir, file, relativeConfigs, resolvedConfigs) => {
   const finalFileName = path.join(resolvedConfigs.output, path.normalize(fileName));
 
   // Create folder if not exists
-  marechalUtil.createPath(path.parse(finalFileName).dir);
+  util.disk.folder.createPath(path.parse(finalFileName).dir);
 
   // Create final file
-  marechalUtil.createFile(finalFileName, finalData);
+  util.dist.file.createFile(finalFileName, finalData);
 };
 
 module.exports = {

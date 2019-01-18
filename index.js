@@ -3,9 +3,8 @@
 // Required libs
 const path = require('path');
 const info = require(path.join(__dirname, 'package.json'));
-// cli
-const program = require('commander');
-const cliCommands = require('./src/cli/cli');
+const program = require('commander'); // cli
+const cliCommands = require('./src/cli/cli'); // cli-commands
 
 
 // Initialize cli

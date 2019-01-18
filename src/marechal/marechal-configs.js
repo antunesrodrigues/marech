@@ -1,10 +1,12 @@
 // Required libs
 const path = require('path');
 
+// Default names
 const defaultNames = {
   filename: 'marechal-config'
 };
 
+// Get default configs
 const defaultConfigs = (input = 'src', output = 'dist', teleg = 'src/marech') => {
   const configs = {
     input: {
@@ -21,18 +23,20 @@ const defaultConfigs = (input = 'src', output = 'dist', teleg = 'src/marech') =>
   return configs;
 };
 
+// Get 'default' configs with path changed
 const simpleConfig = (confd) => {
   const {input, output, teleg} = confd;
   return defaultConfigs(input, output, teleg);
 };
 
-
+// Merge default configs with user configs
 const mergeConfigs = (userConfigs) => {
   const mergedConfigs = Object.assign({}, defaultConfigs, userConfigs);
 
   return mergedConfigs;
 };
 
+// Convert relative paths to real paths
 const resolveConfig = (config, dir = './') => {
   let resolvedConfigs = JSON.parse(JSON.stringify(config));
 
@@ -45,7 +49,7 @@ const resolveConfig = (config, dir = './') => {
 
 
 
-
+// Export all
 module.exports = {
   defaultNames,
   

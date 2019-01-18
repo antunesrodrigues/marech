@@ -1,6 +1,6 @@
 // Required libs
 const path = require('path');
-const marechalUtil = require('../../lib/util');
+const util = require('../../lib/all');
 const marechalCore = require('./marechal-core');
 
 
@@ -17,26 +17,32 @@ const marechalByData = (originalData, configs) => {
     while((match = marechExp.exec(finalData)) !== null) {
       // Normalize if user use break-line inside marech tag
       match[0] = match[0].replace(/(\n| {2,})/g, ' ');
-
+      
       // Text before MarechTag definition
-      const beforeTag = marechalUtil.matchFunctions.before(finalData, match);
+      const beforeTag = util.marechHelpers.execObj.before(finalData, match);
+      // Before tag + tag
+      const beforeAndTag  = beforeTag + match[0];
       // Text after MarechTag definition
-      const afterTag = marechalUtil.matchFunctions.after(finalData, match);
+      const afterTag = util.marechHelpers.execObj.after(finalData, match);
+      
       
       // Get Teleg name
-      const name = marechalUtil.nameOrProps('name', match[0]);
-      
+      const name = util.marechHelpers.nameOrProps('name', match[0]);
       // Get Properties definition
-      const props = marechalUtil.nameOrProps('props', match[0]);      
-      
+      const props = util.marechHelpers.nameOrProps('props', match[0]);
+      // Pre-props (marech UX)
+      const preProps = util.marechHelpers.uxMarech(match[0], beforeAndTag);
+
+
       // Find teleg file from Marech@... definition
-      const telegFile = marechalUtil.findTelegFile(name, configs);      
-      
+      const telegFile = util.marechHelpers.findTelegName(name, configs);      
       // Read the teleg
-      const originalMarechTeleg = marechalUtil.readFile(path.join(configs.telegs.path, telegFile));
-      
+      const originalMarechTeleg = util.disk.file.readFile(path.join(configs.telegs.path, telegFile));
+
+
       // Split to content and args
-      const {marechTeleg, args} = marechalUtil.propFunctions(originalMarechTeleg, props);
+      const {marechTeleg, args} = util.marechHelpers.execObj(originalMarechTeleg, props, preProps);
+
 
       // MarechalCORE
       const mareched = marechalCore(marechTeleg, args);
