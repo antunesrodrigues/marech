@@ -9,7 +9,7 @@ const byFile = (file, relativeConfigs, resolvedConfigs) => {
   const originalData = util.disk.file.readFile(path.resolve(file));
   // Marech it
   const finalData = marechalByText(originalData, resolvedConfigs);
-  
+
   return finalData;
 };
 

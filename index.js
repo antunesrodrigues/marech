@@ -2,16 +2,22 @@
 
 // Required libs
 const path = require('path');
-const info = require(path.join(__dirname, 'package.json'));
 const program = require('commander'); // cli
 const cliCommands = require('./src/cli/cli'); // cli-commands
+
+const packageLocation = path.join(__dirname, 'package.json');
+// eslint-disable-next-line import/no-dynamic-require
+const info = require(packageLocation);
 
 
 // Initialize cli
 program
-  .version(info.version)
-  .description(`Marech v${info.version}`);
+  .version(info.version);
+//  .description(`Marech v${info.version}`);
 
+
+// eslint-disable-next-line no-console
+console.info(`Marech Version: ${info.version}\n`);
 
 // Each cli-command are on cliCommands
 // Import to use it

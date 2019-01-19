@@ -13,7 +13,6 @@ const marechalByData = (originalData, configs) => {
   const marechExp = util.regExp.marechTag;
 
   while (finalData.match(marechExp) !== null) {
-    // By eslint, 'match' need be defined
     let match;
     while ((match = marechExp.exec(finalData)) !== null) {
       // Normalize if user use break-line inside marech tag
@@ -48,12 +47,13 @@ const marechalByData = (originalData, configs) => {
       // MarechalCORE
       const mareched = marechalCore(marechTeleg, args, defaultTelegArgs);
 
+
       // Replace the <Marech@...> to imported teleg
       finalData = beforeTag + mareched + afterTag;
     }
   }
 
-  // Convert multiples empty line-bracks to one only
+  // Convert multiples empty break lines to one only
   finalData = finalData.replace(/\n {3,}\n/g, '\n');
 
   // Return mareched

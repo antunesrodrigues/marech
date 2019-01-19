@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 // Required libs
 const path = require('path');
 const glob = require('glob');
@@ -16,12 +18,12 @@ const compile = (program) => {
       let configFile = './marech-config.js';
       let workDir = './';
 
-      if(opt.config && opt.config !== true) {
+      if (opt.config && opt.config !== true) {
         configFile = opt.config;
       }
-      
-      if(dir) {
-        if(util.disk.folder.existsPath(path.resolve(dir))) {
+
+      if (dir) {
+        if (util.disk.folder.existsPath(path.resolve(dir))) {
           workDir = dir;
         }
       } else {
@@ -39,14 +41,14 @@ const compile = (program) => {
       const resolvedConfigs = marechalConfigs.resolveConfig(relativeConfigs, workDir);
 
       // Get all files matched by input
-      glob(path.join(workDir, relativeConfigs.input.path, relativeConfigs.input.files), {ignore: path.join(workDir, relativeConfigs.telegs.path, '/**/*.html')}, (err, files) => {
-        if(err) throw err;
-        
-        // Go to each input file 
+      glob(path.join(workDir, relativeConfigs.input.path, relativeConfigs.input.files), { ignore: path.join(workDir, relativeConfigs.telegs.path, '/**/*.html') }, (err, files) => {
+        if (err) throw err;
+
+        // Go to each input file
         files.forEach((file) => {
           // Use marechal to file
           marechalByFile.byFileAndCreate(workDir, file, relativeConfigs, resolvedConfigs);
-          
+
           // Get relative filename from current dir
           const onlyFileName = path.relative(relativeConfigs.input.path, file);
           console.info(`${onlyFileName} - OK!`);
