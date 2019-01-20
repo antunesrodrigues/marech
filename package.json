@@ -5,8 +5,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "lint": "tslint **/*.ts --fix",
-    "compile": "tsc"
+    "lint": "tslint --project tsconfig.json --config tslint.json src/**/*.ts --fix && echo 'End Lint'",
+    "compile": "npm run lint; tsc && echo 'End Compilation'"
   },
   "bin": {
     "marech": "./dist/bin/marech.js"
