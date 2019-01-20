@@ -1,5 +1,6 @@
 // Required libs
-const path = require('path');
+import path from 'path';
+import { ConfigsInterface } from './../../lib/marech-helpers/interfaces/configs-interface';
 
 // Default names
 const defaultNames = {
@@ -7,13 +8,14 @@ const defaultNames = {
 };
 
 // Get default configs
-const defaultConfigs = (input = 'src', output = 'dist', teleg = 'src/marech') => {
+const defaultConfigs = (input = 'src', output = 'dist', teleg = 'src/marech'):ConfigsInterface => {
   const configs = {
+    output,
+
     input: {
       path: input,
       files: '**/*.html',
     },
-    output,
 
     telegs: {
       path: teleg,
@@ -24,20 +26,20 @@ const defaultConfigs = (input = 'src', output = 'dist', teleg = 'src/marech') =>
 };
 
 // Get 'default' configs with path changed
-const simpleConfig = (confd) => {
+const simpleConfig = (confd:any) => {
   const { input, output, teleg } = confd;
   return defaultConfigs(input, output, teleg);
 };
 
 // Merge default configs with user configs
-const mergeConfigs = (userConfigs) => {
-  const mergedConfigs = Object.assign({}, defaultConfigs, userConfigs);
+const mergeConfigs = (userConfigs:ConfigsInterface) => {
+  const mergedConfigs = { ...defaultConfigs, ...userConfigs };
 
   return mergedConfigs;
 };
 
 // Convert relative paths to real paths
-const resolveConfig = (config, dir = './') => {
+const resolveConfig = (config:object, dir = './'):ConfigsInterface => {
   const resolvedConfigs = JSON.parse(JSON.stringify(config));
 
   resolvedConfigs.telegs.path = path.join(path.resolve(dir), resolvedConfigs.telegs.path);
@@ -47,9 +49,8 @@ const resolveConfig = (config, dir = './') => {
   return resolvedConfigs;
 };
 
-
 // Export all
-module.exports = {
+export default {
   defaultNames,
 
   defaultConfigs,

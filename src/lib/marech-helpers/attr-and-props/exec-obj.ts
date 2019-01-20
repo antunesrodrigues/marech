@@ -1,19 +1,18 @@
 /* eslint-disable no-cond-assign */
 
-const attrToObj = require('./attr-to-obj');
-const regExp = require('../../regexp/all');
-const resolveFunction = require('../../functions/function-js');
+import attrToObj from './attr-to-obj';
+import regExp from '../../padroes/reg-exp';
+import resolveFunction from '../../functions/resolve-function';
 
 // Execute @... calls
-const execObj = (text, propes, prepropes = {}) => {
+const execObj:Function = (text:string, propes:string, prepropes:{indent: (string|number)}) => {
   let finalTeleg = text;
   let props = propes;
 
-  let flags = {};
+  let flags:{ [propName: string]: string; } = {};
   const finalFlags = {
-    indent: (prepropes.indent ? prepropes.indent : 0),
+    indent: prepropes.indent || 0,
   };
-
 
   // Line break?
   if (props[0] !== ' ') {
@@ -22,15 +21,16 @@ const execObj = (text, propes, prepropes = {}) => {
 
   // Analyse all @... attr
   const marechExp = regExp.flags;
-  let mtch;
-  while ((mtch = marechExp.exec(props)) !== null) {
+  let mtch:any;
+  while ((mtch = marechExp.exec(props))) {
     // Split each @foo=... @bar=... to ["foo='...'", "bar='...'"]
     let matches = mtch[0].split(/(\n|[ ])@/g);
-
-    // Remove null itens
-    matches = matches.filter(i => i.trim());
-    // Convert '=' to ':'
-    matches = matches.map(i => i.replace(/=(?='|")/, ':'));
+    if (matches) {
+      // Remove null itens
+      matches = matches.filter((i:string) => i.trim());
+      // Convert '=' to ':'
+      matches = matches.map((i:string) => i.replace(/=(?='|")/, ':'));
+    }
 
     // Convert to JS Object
     flags = attrToObj(matches);
@@ -46,7 +46,11 @@ const execObj = (text, propes, prepropes = {}) => {
   let tabs = '\t';
   if (finalFlags.indent !== '\t') {
     // Set the new "tab"
-    tabs = ' '.repeat(finalFlags.indent);
+    tabs = '';
+    // es5 don't have String.repeat method
+    for (let i = 0; i < finalFlags.indent; i += 1) {
+      tabs += ' ';
+    }
   }
   // Indent
   finalTeleg = finalTeleg.replace(/(?:\n|^)/g, `\n${tabs}`);
@@ -55,7 +59,12 @@ const execObj = (text, propes, prepropes = {}) => {
   //
 
   // Find marech definition
-  let marechDefinition = finalTeleg.match(regExp.marechDef) ? finalTeleg.match(regExp.marechDef)[0] : '';
+  let marechDefinition = '';
+
+  const findMarechDefinition = finalTeleg.match(regExp.marechDef);
+  if (findMarechDefinition) {
+    marechDefinition = findMarechDefinition[0];
+  }
 
   // Resolve JS(...) inside marech tag
   const rjs = marechDefinition.match(/JS\(([^](?!(>)))*\)/g);
@@ -68,10 +77,8 @@ const execObj = (text, propes, prepropes = {}) => {
   // User's can define default attr if aren't defined
   const defaultTelegArgs = attrToObj(marechDefinition.slice(7, -1));
 
-
   // Remove @ flags
   const args = attrToObj(props.replace(regExp.flags, ''));
-
 
   // Remove marech definition from final teleg
   finalTeleg = finalTeleg.replace(marechDefinition, '').trim();
@@ -85,4 +92,4 @@ const execObj = (text, propes, prepropes = {}) => {
   };
 };
 
-module.exports = execObj;
+export default execObj;

@@ -1,52 +1,49 @@
-/* eslint-disable no-cond-assign */
 // Required libs
-const path = require('path');
-const util = require('../../lib/all');
-const marechalCore = require('./marechal-core');
+import path from 'path';
 
+import lib from '../../lib';
+import marechalCore from './marechal-core';
+import { ConfigsInterface } from './../../lib/marech-helpers/interfaces/configs-interface';
 
-const marechalByData = (originalData, configs) => {
+const marechalByData = (originalData:string, configs:ConfigsInterface) => {
   // Keep original data and set it to another
   let finalData = originalData;
 
   // Go to each <Marech@...> tag
-  const marechExp = util.regExp.marechTag;
+  const marechExp = lib.padroes.regExp.marechTag;
 
-  while (finalData.match(marechExp) !== null) {
+  while (finalData.match(marechExp)) {
     let match;
-    while ((match = marechExp.exec(finalData)) !== null) {
+    while ((match = marechExp.exec(finalData))) {
       // Normalize if user use break-line inside marech tag
       match[0] = match[0].replace(/(\r|\t|\n| {2,})/g, ' ');
 
       // Text before MarechTag definition
-      const beforeTag = util.marechHelpers.beforeAndAfterMatch.before(finalData, match);
+      const beforeTag = lib.marechHelpers.beforeAndAfterMatch.before(finalData, match);
       // Before tag + tag
       const beforeAndTag = beforeTag + match[0];
       // Text after MarechTag definition
-      const afterTag = util.marechHelpers.beforeAndAfterMatch.after(finalData, match);
+      const afterTag = lib.marechHelpers.beforeAndAfterMatch.after(finalData, match);
 
       // Get Teleg name
-      const name = util.marechHelpers.nameOrProps('name', match[0]);
+      const name = lib.marechHelpers.nameOrProps('name', match[0]);
       // Get Properties definition
-      const props = util.marechHelpers.nameOrProps('props', match[0]);
+      const props = lib.marechHelpers.nameOrProps('props', match[0]);
       // Pre-props (marech UX)
-      const preProps = util.marechHelpers.uxMarech(match[0], beforeAndTag);
-
+      const preProps = lib.marechHelpers.uxMarech(match[0], beforeAndTag);
 
       // Find teleg file from Marech@... definition
-      const telegFile = util.marechHelpers.findTelegName(name, configs);
+      const telegFile = lib.marechHelpers.findTelegName(name, configs);
       // Read the teleg
       const telegPath = path.join(configs.telegs.path, telegFile);
-      const originalMarechTeleg = util.disk.file.readFile(telegPath);
+      const originalMarechTeleg = lib.disk.file.readFile(telegPath);
 
       // Split to content and args
-      const splitedItens = util.marechHelpers.execObj(originalMarechTeleg, props, preProps);
+      const splitedItens = lib.marechHelpers.execObj(originalMarechTeleg, props, preProps);
       const { marechTeleg, args, defaultTelegArgs } = splitedItens;
-
 
       // MarechalCORE
       const mareched = marechalCore(marechTeleg, args, defaultTelegArgs);
-
 
       // Replace the <Marech@...> to imported teleg
       finalData = beforeTag + mareched + afterTag;
@@ -60,4 +57,4 @@ const marechalByData = (originalData, configs) => {
   return finalData;
 };
 
-module.exports = marechalByData;
+export default marechalByData;

@@ -1,29 +1,28 @@
-/* eslint-disable no-console */
-
 // Required libs
-const path = require('path');
-const glob = require('glob');
-const util = require('../../../lib/all');
-const marechalConfigs = require('../../marechal/marechal-configs');
-const marechalByFile = require('../../marechal/marechal-by-file');
+import path from 'path';
+import glob from 'glob';
+import { Command } from 'commander';
 
+import lib from '../../../lib';
+import marechalConfigs from '../../marechal/marechal-configs';
+import marechalByFile from '../../marechal/marechal-by-file';
 
-const compile = (program) => {
-  program
+const compile = (commander:Command) => {
+  commander
     .command('compile [dir]')
     .alias('c')
     .description('Compile marech')
     .option('-c, --config [filename]', 'Set custom marech-config file')
-    .action((dir, opt) => {
-      let configFile = './marech-config.js';
+    .action((dir:(string|null), opt:{config: (string | boolean)}) => {
+      let configFile = './marech-config.json';
       let workDir = './';
 
-      if (opt.config && opt.config !== true) {
+      if (opt.config && typeof opt.config !== 'boolean') {
         configFile = opt.config;
       }
 
       if (dir) {
-        if (util.disk.folder.existsPath(path.resolve(dir))) {
+        if (lib.disk.folder.existsPath(path.resolve(dir))) {
           workDir = dir;
         }
       } else {
@@ -33,19 +32,25 @@ const compile = (program) => {
       // Convert relative path to real path. Like marechal-config -> C:\path\to\marechal-config.js
       const resolvedConfigFile = path.join(process.cwd(), configFile);
       // Import user configs
-      const userConfigs = util.disk.file.requireFile(resolvedConfigFile);
+      const userConfigs = lib.disk.file.requireFile(resolvedConfigFile, true);
+      console.log(userConfigs);
 
       // Configs with relative path's
       const relativeConfigs = marechalConfigs.mergeConfigs(userConfigs);
       // Configs with real path location
       const resolvedConfigs = marechalConfigs.resolveConfig(relativeConfigs, workDir);
 
+      const filesLocation = path.join(workDir, relativeConfigs.input.path);
+      const fullFilesLocation =  path.join(filesLocation, relativeConfigs.input.files);
+
+      const ignoreFiles = { ignore: path.join(workDir, relativeConfigs.telegs.path, '/**/*.html') };
+
       // Get all files matched by input
-      glob(path.join(workDir, relativeConfigs.input.path, relativeConfigs.input.files), { ignore: path.join(workDir, relativeConfigs.telegs.path, '/**/*.html') }, (err, files) => {
+      glob(fullFilesLocation, ignoreFiles, (err:any, files:string[]) => {
         if (err) throw err;
 
         // Go to each input file
-        files.forEach((file) => {
+        files.forEach((file:string) => {
           // Use marechal to file
           marechalByFile.byFileAndCreate(workDir, file, relativeConfigs, resolvedConfigs);
 
@@ -59,4 +64,4 @@ const compile = (program) => {
     });
 };
 
-module.exports = compile;
+export default compile;

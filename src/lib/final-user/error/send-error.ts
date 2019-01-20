@@ -1,5 +1,5 @@
-const sendError = (message) => {
+const sendError = (message:string = '') => {
   throw new Error(message);
 };
 
-module.exports = sendError;
+export default sendError;

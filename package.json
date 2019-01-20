@@ -5,15 +5,19 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint **/*.js --fix"
+    "lint": "tslint **/*.ts --fix",
+    "compile": "tsc"
   },
   "bin": {
-    "marech": "./bin/marech.js"
+    "marech": "./dist/bin/marech.js"
   },
   "devDependencies": {
-    "eslint": "^5.12.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
+    "typescript": "^3.2.4",
+    "@types/glob": "^7.1.1",
+    "@types/inquirer": "0.0.43",
+    "@types/node": "^10.12.18",
+    "tslint": "^5.12.1",
+    "tslint-config-airbnb": "^5.11.1"
   },
   "dependencies": {
     "commander": "^2.19.0",

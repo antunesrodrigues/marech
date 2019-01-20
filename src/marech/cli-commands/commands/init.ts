@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
-
 // Required libs
-const path = require('path');
-const inquirer = require('inquirer');
-const util = require('../../../lib/all');
-const marechalConfigs = require('../../marechal/marechal-configs');
+import path from 'path';
+import { Command } from 'commander';
+import inquirer from 'inquirer';
+
+import lib from '../../../lib';
+import marechalConfigs from '../../marechal/marechal-configs';
 
 // Questions to user
 const questions = [
@@ -39,15 +39,15 @@ const questions = [
 
 ];
 
-const init = (program) => {
-  program
+const init = (commander:Command) => {
+  commander
     .command('init [dir]')
     .alias('i')
     .description('Initialize marech')
     .option('-y, --yes', 'Use default answers')
-    .action(async (dir, opt) => {
+    .action((dir, opt) => {
       // Get default marech configs
-      let configs = marechalConfigs.defaultConfigs;
+      let configs = marechalConfigs.defaultConfigs();
 
       // Set default filename and work-dir
       let { filename } = marechalConfigs.defaultNames;
@@ -56,7 +56,7 @@ const init = (program) => {
       // Verify if isset 'dir' command
       if (dir) {
         // Create path if not exists
-        if (util.disk.folder.createPath(path.resolve(dir))) {
+        if (lib.disk.folder.createPath(path.resolve(dir))) {
           workDir = dir;
         }
       } else {
@@ -67,16 +67,20 @@ const init = (program) => {
       // Verify if it's not defined
       if (!opt.yes) {
         // Send questions
-        await inquirer.prompt(questions)
-          .then((answers) => {
+        inquirer.prompt(questions)
+          .then((answers:any) => {
             configs = marechalConfigs.simpleConfig(answers);
             ({ filename } = answers);
+
+            // Export and create config file
+            lib.disk.file.createFile(path.join(workDir, `${filename}.json`), configs);
           });
+      } else {
+        // Export and create config file
+        lib.disk.file.createFile(path.join(workDir, `${filename}.json`), configs);
       }
 
-      // Export and create config file
-      util.disk.file.createFile(path.join(workDir, `${filename}.js`), configs, true);
     });
 };
 
-module.exports = init;
+export default init;

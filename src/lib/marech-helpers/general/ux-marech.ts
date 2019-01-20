@@ -1,6 +1,6 @@
 
 // Function's for better design of final code...
-const uxMarech = (text, preText) => {
+const uxMarech:Function = (text:string, preText:string) => {
   let greatText = text;
   const whatsBad = ['+', '*', '(', ')'];
 
@@ -8,8 +8,7 @@ const uxMarech = (text, preText) => {
     greatText = greatText.replace(new RegExp(`\\${e}`, 'g'), `\\${e}`);
   });
 
-
-  let tab = 0;
+  let tab:(string|number) = 0;
 
   // Use current identation
   const tabs = preText.match(new RegExp(`\n( {0,}|\t)${greatText}`));
@@ -27,4 +26,4 @@ const uxMarech = (text, preText) => {
   };
 };
 
-module.exports = uxMarech;
+export default uxMarech;

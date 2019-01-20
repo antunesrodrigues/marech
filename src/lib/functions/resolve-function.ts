@@ -1,4 +1,4 @@
-const resolveFunction = (fnTxt) => {
+const resolveFunction:Function = (fnTxt:string) => {
   let fn = fnTxt;
   if (fn.slice(0, 3) !== 'JS(') {
     fn = `JS(${fn}`;
@@ -18,4 +18,4 @@ const resolveFunction = (fnTxt) => {
   return execFunct();
 };
 
-module.exports = resolveFunction;
+export default resolveFunction;

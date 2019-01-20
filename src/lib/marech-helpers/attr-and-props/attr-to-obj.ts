@@ -1,12 +1,12 @@
 /* eslint-disable no-cond-assign */
-const matchFunctions = require('../general/before-and-after-match');
-const resolveFunction = require('../../functions/function-js');
-const regExp = require('../../regexp/all');
+import beforeAndAfterMatch from '../general/before-and-after-match';
+import resolveFunction from '../../functions/resolve-function';
+import regExp from '../../padroes/reg-exp';
 
 // Convert HTML attributes to JS Object
-const attrToObj = (attributes) => {
+const attrToObj:Function = (attributes:string) => {
   // Set default object if 'attributes' are empty
-  let props = {};
+  let props:{ [propName: string]: string; } = {};
 
   // Verify if attributes are ok
   if (attributes.length) {
@@ -17,7 +17,7 @@ const attrToObj = (attributes) => {
     let mtch2; // By eslint, 'mtch2' need be defined
     while ((mtch2 = regExp.attr.exec(propsStr)) != null) {
       // Get text before attr definition
-      const beforeProp = matchFunctions.before(mtch2.input, mtch2);
+      const beforeProp = beforeAndAfterMatch.before(mtch2.input, mtch2);
       // Set to final var
       propsStr = beforeProp;
 
@@ -35,36 +35,38 @@ const attrToObj = (attributes) => {
       propsStr += replaced;
 
       // Get text after propertie definition
-      const afterProp = matchFunctions.after(mtch2.input, mtch2);
+      const afterProp = beforeAndAfterMatch.after(mtch2.input, mtch2);
       // Add change to propsStr
       propsStr += afterProp;
     }
 
     // Convert foo:'bar' to foo:"bar"
-    const withSingle = propsStr.match(/:'(.*)'[,|^]/g);
+    const withSingle = propsStr.match(/:'(.*)'[,]/g);
     if (withSingle) {
       withSingle.forEach((i) => {
-        const content = i.match(/:'(.*)'[,|^]/)[1].replace(/"/g, '\\"');
-        const withDouble = `:"${content}",`;
+        const find = i.match(/:'(.*)'[,|^]/);
+        if (find) {
+          const content = find[1].replace(/"/g, '\\"');
+          const withDouble = `:"${content}",`;
 
-        propsStr = propsStr.replace(new RegExp(i, 'g'), withDouble);
+          propsStr = propsStr.replace(new RegExp(i, 'g'), withDouble);
+        }
       });
     }
-
 
     // Convert to JS Object
     props = JSON.parse(`{${propsStr}}`);
 
-    // Verify if user want use JS functions
-    const propsValues = Object.values(props);
-    for (let i = 0; i < propsValues.length; i += 1) {
-      if (propsValues[i].slice(0, 3) === 'JS(' && propsValues[i].slice(-1) === ')') {
-        props[i] = resolveFunction(propsValues[i]);
+    for (const i in props) {
+      // Verify if user want use JS functions
+      if (props[i].slice(0, 3) === 'JS(' && props[i].slice(-1) === ')') {
+        props[i] = resolveFunction(props[i]);
       }
     }
+
   }
 
   return props;
 };
 
-module.exports = attrToObj;
+export default attrToObj;

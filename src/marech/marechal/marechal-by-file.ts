@@ -1,19 +1,21 @@
 // Required libs
-const path = require('path');
-const util = require('../../lib/all');
-const marechalByText = require('./marechal-by-text');
+import path from 'path';
+
+import lib from '../../lib';
+import marechalByText from './marechal-by-text';
+import { ConfigsInterface as CI } from './../../lib/marech-helpers/interfaces/configs-interface';
 
 // Marech by file
-const byFile = (file, relativeConfigs, resolvedConfigs) => {
+const byFile = (file:string, relativeConfigs:CI, resolvedConfigs:CI) => {
   // Read file content
-  const originalData = util.disk.file.readFile(path.resolve(file));
+  const originalData = lib.disk.file.readFile(path.resolve(file));
   // Marech it
   const finalData = marechalByText(originalData, resolvedConfigs);
 
   return finalData;
 };
 
-const byFileAndCreate = (workDir, file, relativeConfigs, resolvedConfigs) => {
+const byFileAndCreate = (workDir:string, file:string, relativeConfigs:CI, resolvedConfigs:CI) => {
   const finalData = byFile(file, relativeConfigs, relativeConfigs);
 
   // Get file name
@@ -22,13 +24,13 @@ const byFileAndCreate = (workDir, file, relativeConfigs, resolvedConfigs) => {
   const finalFileName = path.join(resolvedConfigs.output, path.normalize(fileName));
 
   // Create folder if not exists
-  util.disk.folder.createPath(path.parse(finalFileName).dir);
+  lib.disk.folder.createPath(path.parse(finalFileName).dir);
 
   // Create final file
-  util.disk.file.createFile(finalFileName, finalData);
+  lib.disk.file.createFile(finalFileName, finalData);
 };
 
-module.exports = {
+export default {
   byFile,
   byFileAndCreate,
 };

@@ -1,9 +1,10 @@
-const regExp = require('../../regexp/all');
+import regExp from '../../padroes/reg-exp';
 
 // Get name or args by <Marech@...>
-const nameOrProps = (mode, text) => {
+const nameOrProps:Function = (mode:string, text:string) => {
+  const tag = text.match(regExp.marechTagAttr);
   // Name (+ properties)
-  const nameAndProps = text.match(regExp.marechTagAttr)[1];
+  const nameAndProps = tag ? tag[1] : '';
   // Name
   const name = nameAndProps.split(' ')[0];
   // Props
@@ -19,4 +20,4 @@ const nameOrProps = (mode, text) => {
   return '';
 };
 
-module.exports = nameOrProps;
+export default nameOrProps;

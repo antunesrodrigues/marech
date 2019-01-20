@@ -1,11 +1,13 @@
-const findTelegFile = (telegName, configs) => {
+import { ConfigsInterface } from './../interfaces/configs-interface';
+
+const findTelegFile:Function = (telegName:string, configs:ConfigsInterface) => {
   let file = '';
   if (configs.telegs.filesByTelegName) {
     file = `${telegName}.html`;
   }
 
-  if (configs.telegs.file) {
-    configs.telegs.files.forEach((fl) => {
+  if (configs.telegs.files) {
+    configs.telegs.files.forEach((fl:{ id: string, file: string }) => {
       if (fl.id === telegName) {
         ({ file } = fl);
       }
@@ -15,4 +17,4 @@ const findTelegFile = (telegName, configs) => {
   return file;
 };
 
-module.exports = findTelegFile;
+export default findTelegFile;
