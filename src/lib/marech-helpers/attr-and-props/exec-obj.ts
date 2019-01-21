@@ -1,5 +1,3 @@
-/* eslint-disable no-cond-assign */
-
 import attrToObj from './attr-to-obj';
 import regExp from '../../padroes/reg-exp';
 import resolveFunction from '../../functions/resolve-function';
@@ -75,7 +73,12 @@ const execObj:Function = (text:string, propes:string, prepropes:{indent: (string
   }
 
   // User's can define default attr if aren't defined
-  const defaultTelegArgs = attrToObj(marechDefinition.slice(7, -1));
+  const findTelegArgs = marechDefinition.match(regExp.marechDefOnlyArgs);
+
+  let defaultTelegArgs = '';
+  if (findTelegArgs) {
+    defaultTelegArgs = attrToObj(findTelegArgs[0]);
+  }
 
   // Remove @ flags
   const args = attrToObj(props.replace(regExp.flags, ''));

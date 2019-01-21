@@ -49,7 +49,11 @@ var execObj = function (text, propes, prepropes) {
             marechDefinition = marechDefinition.replace(e, resolve_function_1.default(e));
         });
     }
-    var defaultTelegArgs = attr_to_obj_1.default(marechDefinition.slice(7, -1));
+    var findTelegArgs = marechDefinition.match(reg_exp_1.default.marechDefOnlyArgs);
+    var defaultTelegArgs = '';
+    if (findTelegArgs) {
+        defaultTelegArgs = attr_to_obj_1.default(findTelegArgs[0]);
+    }
     var args = attr_to_obj_1.default(props.replace(reg_exp_1.default.flags, ''));
     finalTeleg = finalTeleg.replace(marechDefinition, '').trim();
     return {

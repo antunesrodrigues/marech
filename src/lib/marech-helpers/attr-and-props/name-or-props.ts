@@ -4,7 +4,7 @@ import regExp from '../../padroes/reg-exp';
 const nameOrProps:Function = (mode:string, text:string) => {
   const tag = text.match(regExp.marechTagAttr);
   // Name (+ properties)
-  const nameAndProps = tag ? tag[1] : '';
+  const nameAndProps = tag ? tag[0] : '';
   // Name
   const name = nameAndProps.split(' ')[0];
   // Props

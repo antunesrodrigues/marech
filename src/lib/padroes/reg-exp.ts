@@ -3,10 +3,11 @@ interface RegExpInterface {
 }
 
 const regExp:RegExpInterface = {
-  marechTag: /<Marech@(([^](?!<))*)>/gi,
-  marechTagAttr: /(?:<Marech@)(.*)(?=>)/i,
+  marechTag: /<Marech@(([^](?!<))*)(\/>|><\/Marech>)/gi,
+  marechTagAttr: /(?<=<Marech@).*(?=(\/>|><\/Marech>))/i,
 
-  marechDef: /<Marech(([^](?!<))*)>/gi,
+  marechDef: /<Marech(([^](?!<))*)(\/>|><\/Marech>)/gi,
+  marechDefOnlyArgs: /(?<=<Marech)[^]*(?=(\/>|><\/Marech>))/gi,
 
   attr: /(?:^|[ ])([a-z]+)=("|')/gi,
   flags: /(?:^|[ ]) @.+=("|').*\1/g,
