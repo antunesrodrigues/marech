@@ -13,7 +13,7 @@ Marech is an HTML precompiler, where you can split your code and print JavaScrip
   ```
 
 
-## 😌 Get's started
+## 😅 Get's started
 ### Create configuration file
   You need marech-config.js into your project (created in "How to Install")
 
