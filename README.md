@@ -2,20 +2,21 @@ Marech is an HTML precompiler, where you can split your code and print JavaScrip
 
 
 ## 😎 How to Install
-  Marech is available in the Node Package Manager. If you want, follow the steps of the installation:
+  Marech is available in the NPM.
 
   ```sh
   # Install Marech CLI globally
   npm install marech -g
-
-  # Start marech at this directory 
-  marech init
   ```
 
 
 ## 😅 Get's started
 ### Create configuration file
-  You need marech-config.js into your project (created in "How to Install")
+  You need marech-config.js into your project. To create, use the command:
+  ```sh
+  # Start in the current directory
+  marech init
+  ```
 
 ### Compile
   ```sh
@@ -53,9 +54,9 @@ Marech is an HTML precompiler, where you can split your code and print JavaScrip
   ```
 
 ## 🤝 Contribute
-Please send issues, share to friends, improve the source-code (and send a pull-requests) etc
-
+Please send issues, share to friends, improve the source-code etc
 
 ## 📝 License
-Licensed under the [MIT License](LICENSE.txt)
+Licensed under the [MIT License](LICENSE.txt).
+
 Created by [Gabriel Rodrigues](https://github.com/antunesrodrigues)
