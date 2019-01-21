@@ -14,18 +14,17 @@ Marech is an HTML precompiler, where you can split your code and print JavaScrip
 
 
 ## 🤙 Get's started
-### 👨‍🎨 Final User
-  - Create marech file
-    You need marech-config.js into your project, created in "How to Install"
+### Create configuration file
+  You need marech-config.js into your project (created in "How to Install")
 
-  - Compile
-    ```sh
-    # Compile and create final file(s)
-    marech compile
-    ```
+### Compile
+  ```sh
+  # Compile and create final file(s)
+  marech compile
+  ```
 
-### 👨‍🔬 Developer for MarechCore
-  Please disregard the "How to Install" topic by uninstalling marech so you can make changes to the source code
+## 👨‍🔬 Developer for MarechCore
+  Before making changes to the source code, please ignore the "How to Install" topic, uninstalling marech globally.
 
   - Local changes at "global" package
     ```sh
