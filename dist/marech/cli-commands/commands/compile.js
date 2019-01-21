@@ -30,7 +30,6 @@ var compile = function (commander) {
         }
         var resolvedConfigFile = path_1.default.join(process.cwd(), configFile);
         var userConfigs = lib_1.default.disk.file.requireFile(resolvedConfigFile, true);
-        console.log(userConfigs);
         var relativeConfigs = marechal_configs_1.default.mergeConfigs(userConfigs);
         var resolvedConfigs = marechal_configs_1.default.resolveConfig(relativeConfigs, workDir);
         var filesLocation = path_1.default.join(workDir, relativeConfigs.input.path);

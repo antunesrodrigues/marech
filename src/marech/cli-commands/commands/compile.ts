@@ -33,7 +33,6 @@ const compile = (commander:Command) => {
       const resolvedConfigFile = path.join(process.cwd(), configFile);
       // Import user configs
       const userConfigs = lib.disk.file.requireFile(resolvedConfigFile, true);
-      console.log(userConfigs);
 
       // Configs with relative path's
       const relativeConfigs = marechalConfigs.mergeConfigs(userConfigs);
