@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import lib from '../../lib';
 
 interface ArgsType {

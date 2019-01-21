@@ -7,7 +7,6 @@ const resolveFunction:Function = (fnTxt:string) => {
     fn = `${fn})`;
   }
 
-  // eslint-disable-next-line no-new-func
   const execFunct = Function(`
   'use strict';
   const JS = (...args) => Object.values(args).join('');

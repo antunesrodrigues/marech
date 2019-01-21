@@ -1,4 +1,3 @@
-/* eslint-disable no-cond-assign */
 import beforeAndAfterMatch from '../general/before-and-after-match';
 import resolveFunction from '../../functions/resolve-function';
 import regExp from '../../padroes/reg-exp';
@@ -14,7 +13,7 @@ const attrToObj:Function = (attributes:string) => {
     let propsStr = attributes;
 
     let firstProp = true; // Verify if is first time at the loop
-    let mtch2; // By eslint, 'mtch2' need be defined
+    let mtch2;
     while ((mtch2 = regExp.attr.exec(propsStr)) != null) {
       // Get text before attr definition
       const beforeProp = beforeAndAfterMatch.before(mtch2.input, mtch2);
