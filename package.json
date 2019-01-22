@@ -1,6 +1,6 @@
 {
   "name": "marech",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Html precompiler",
   "license": "MIT",
   "main": "index.js",

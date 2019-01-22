@@ -1,6 +1,6 @@
 # files
 tsconfig.json
-tsling.json
+tslint.json
 
 # folders
 src
