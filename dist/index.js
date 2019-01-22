@@ -6,7 +6,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = __importDefault(require("path"));
 var commander_1 = __importDefault(require("commander"));
-var cli_commands_1 = __importDefault(require("./marech/cli-commands"));
+var cli_commands_1 = __importDefault(require("./cli-commands"));
 var packageLocation = path_1.default.join(__dirname, '../package.json');
 var info = require(packageLocation);
 commander_1.default

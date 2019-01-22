@@ -3,7 +3,7 @@
 // Required libs
 import path from 'path';
 import commander from 'commander'; // cli
-import cliCommands from './marech/cli-commands'; // cli-commands
+import cliCommands from './cli-commands'; // cli-commands
 
 const packageLocation = path.join(__dirname, '../package.json');
 const info = require(packageLocation);

@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = __importDefault(require("path"));
+var fs_1 = __importDefault(require("fs"));
 var glob_1 = __importDefault(require("glob"));
-var lib_1 = __importDefault(require("../../../lib"));
-var marechal_configs_1 = __importDefault(require("../../marechal/marechal-configs"));
-var marechal_by_file_1 = __importDefault(require("../../marechal/marechal-by-file"));
+var marechal_by_file_1 = __importDefault(require("marech-core/dist/marechal/marechal-by-file"));
+var marechal_configs_1 = __importDefault(require("marech-core/dist/marechal/marechal-configs"));
 var compile = function (commander) {
     commander
         .command('compile [dir]')
@@ -21,7 +21,7 @@ var compile = function (commander) {
             configFile = opt.config;
         }
         if (dir) {
-            if (lib_1.default.disk.folder.existsPath(path_1.default.resolve(dir))) {
+            if (fs_1.default.existsSync(path_1.default.resolve(dir))) {
                 workDir = dir;
             }
         }
@@ -29,7 +29,7 @@ var compile = function (commander) {
             workDir = path_1.default.resolve(workDir);
         }
         var resolvedConfigFile = path_1.default.join(process.cwd(), configFile);
-        var userConfigs = lib_1.default.disk.file.requireFile(resolvedConfigFile, true);
+        var userConfigs = JSON.parse(fs_1.default.readFileSync(resolvedConfigFile, 'utf-8'));
         var relativeConfigs = marechal_configs_1.default.mergeConfigs(userConfigs);
         var resolvedConfigs = marechal_configs_1.default.resolveConfig(relativeConfigs, workDir);
         var filesLocation = path_1.default.join(workDir, relativeConfigs.input.path);

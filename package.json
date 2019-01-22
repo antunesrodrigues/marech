@@ -1,28 +1,30 @@
 {
   "name": "marech",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Html precompiler",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "lint": "tslint --project tsconfig.json --config tslint.json src/**/*.ts --fix && echo 'End Lint'",
-    "compile": "npm run lint; tsc && echo 'End Compilation'"
+    "lint": "echo 'Start Lint' && tslint --project tsconfig.json --config tslint.json src/**/*.ts --fix && echo 'End Lint'",
+    "tscompile": "echo '\\nStart Compilation' && tsc && echo 'End Compilation'",
+    "compile": "npm run lint; npm run tscompile"
   },
   "bin": {
     "marech": "./dist/bin/marech.js"
   },
   "devDependencies": {
     "typescript": "^3.2.4",
-    "@types/glob": "^7.1.1",
     "@types/inquirer": "0.0.43",
+    "@types/glob": "^7.1.1",
     "@types/node": "^10.12.18",
     "tslint": "^5.12.1",
     "tslint-config-airbnb": "^5.11.1"
   },
   "dependencies": {
-    "commander": "^2.19.0",
     "glob": "^7.1.3",
-    "inquirer": "^6.2.1"
+    "commander": "^2.19.0",
+    "inquirer": "^6.2.1",
+    "marech-core": "^0.1.1"
   },
   "repository": {
     "type": "git",

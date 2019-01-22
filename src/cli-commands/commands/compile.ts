@@ -1,11 +1,11 @@
 // Required libs
 import path from 'path';
+import fs from 'fs';
 import glob from 'glob';
 import { Command } from 'commander';
 
-import lib from '../../../lib';
-import marechalConfigs from '../../marechal/marechal-configs';
-import marechalByFile from '../../marechal/marechal-by-file';
+import marechalByFile from 'marech-core/dist/marechal/marechal-by-file';
+import marechalConfigs from 'marech-core/dist/marechal/marechal-configs';
 
 const compile = (commander:Command) => {
   commander
@@ -22,7 +22,7 @@ const compile = (commander:Command) => {
       }
 
       if (dir) {
-        if (lib.disk.folder.existsPath(path.resolve(dir))) {
+        if (fs.existsSync(path.resolve(dir))) {
           workDir = dir;
         }
       } else {
@@ -32,7 +32,7 @@ const compile = (commander:Command) => {
       // Convert relative path to real path. Like marechal-config -> C:\path\to\marechal-config.js
       const resolvedConfigFile = path.join(process.cwd(), configFile);
       // Import user configs
-      const userConfigs = lib.disk.file.requireFile(resolvedConfigFile, true);
+      const userConfigs = JSON.parse(fs.readFileSync(resolvedConfigFile, 'utf-8'));
 
       // Configs with relative path's
       const relativeConfigs = marechalConfigs.mergeConfigs(userConfigs);

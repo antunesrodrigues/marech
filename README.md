@@ -24,34 +24,8 @@ Marech is an HTML precompiler, where you can split your code and print JavaScrip
   marech compile
   ```
 
-## 🤓 Developer for MarechCore
-  Before making changes to the source code, please ignore the "How to Install" topic, uninstalling marech globally.
-
-### Get the MarechCore
-  ```sh
-  # Clone this repository
-  git clone https://github.com/antunesrodrigues/marech.git
-
-  # Go to MarechCore folder
-  cd marech
-  
-  # Install required packages
-  npm install
-
-  # Compile the source-code
-  npm run compile
-  ```
-
-### Local changes at "global" package
-  ```sh
-  # Emulate "npm install marech -g"
-  npm link
-  ```
-
-  Now, just use
-  ```sh
-  marech [...]
-  ```
+## 🤓 Developer for Marech-Core
+  Click [here](https://github.com/antunesrodrigues/marech-core), and see the Marech-Core.
 
 ## 🤝 Contribute
 Please send issues, share to friends, improve the source-code etc

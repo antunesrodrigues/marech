@@ -1,10 +1,10 @@
 // Required libs
 import path from 'path';
+import fs from 'fs';
 import { Command } from 'commander';
 import inquirer from 'inquirer';
 
-import lib from '../../../lib';
-import marechalConfigs from '../../marechal/marechal-configs';
+import marechalConfigs from 'marech-core/dist/marechal/marechal-configs';
 
 // Questions to user
 const questions = [
@@ -56,9 +56,10 @@ const init = (commander:Command) => {
       // Verify if isset 'dir' command
       if (dir) {
         // Create path if not exists
-        if (lib.disk.folder.createPath(path.resolve(dir))) {
-          workDir = dir;
+        if (!fs.existsSync(path.resolve(dir))) {
+          fs.mkdirSync(path.resolve(dir));
         }
+        workDir = dir;
       } else {
         workDir = path.resolve(workDir);
       }
@@ -73,11 +74,13 @@ const init = (commander:Command) => {
             ({ filename } = answers);
 
             // Export and create config file
-            lib.disk.file.createFile(path.join(workDir, `${filename}.json`), configs);
+            const configStr = JSON.stringify(configs, null, '  ');
+            fs.writeFileSync(path.join(workDir, `${filename}.json`), configStr);
           });
       } else {
         // Export and create config file
-        lib.disk.file.createFile(path.join(workDir, `${filename}.json`), configs);
+        const configStr = JSON.stringify(configs, null, '  ');
+        fs.writeFileSync(path.join(workDir, `${filename}.json`), configStr);
       }
 
     });

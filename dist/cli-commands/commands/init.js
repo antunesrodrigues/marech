@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var path_1 = __importDefault(require("path"));
+var fs_1 = __importDefault(require("fs"));
 var inquirer_1 = __importDefault(require("inquirer"));
-var lib_1 = __importDefault(require("../../../lib"));
-var marechal_configs_1 = __importDefault(require("../../marechal/marechal-configs"));
+var marechal_configs_1 = __importDefault(require("marech-core/dist/marechal/marechal-configs"));
 var questions = [
     {
         type: 'input',
@@ -44,9 +44,10 @@ var init = function (commander) {
         var filename = marechal_configs_1.default.defaultNames.filename;
         var workDir = './';
         if (dir) {
-            if (lib_1.default.disk.folder.createPath(path_1.default.resolve(dir))) {
-                workDir = dir;
+            if (!fs_1.default.existsSync(path_1.default.resolve(dir))) {
+                fs_1.default.mkdirSync(path_1.default.resolve(dir));
             }
+            workDir = dir;
         }
         else {
             workDir = path_1.default.resolve(workDir);
@@ -56,11 +57,13 @@ var init = function (commander) {
                 .then(function (answers) {
                 configs = marechal_configs_1.default.simpleConfig(answers);
                 (filename = answers.filename);
-                lib_1.default.disk.file.createFile(path_1.default.join(workDir, filename + ".json"), configs);
+                var configStr = JSON.stringify(configs, null, '  ');
+                fs_1.default.writeFileSync(path_1.default.join(workDir, filename + ".json"), configStr);
             });
         }
         else {
-            lib_1.default.disk.file.createFile(path_1.default.join(workDir, filename + ".json"), configs);
+            var configStr = JSON.stringify(configs, null, '  ');
+            fs_1.default.writeFileSync(path_1.default.join(workDir, filename + ".json"), configStr);
         }
     });
 };
