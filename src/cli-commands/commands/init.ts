@@ -12,21 +12,21 @@ const questions = [
     type: 'input',
 
     name: 'input',
-    message: 'Folder to source-code',
+    message: 'Input folder',
     default: 'src',
   },
   {
     type: 'input',
 
-    name: 'telegs',
-    message: 'Folder to marech source-code',
+    name: 'components',
+    message: 'Component\'s folder',
     default: 'src/marech',
   },
   {
     type: 'input',
 
     name: 'output',
-    message: 'Folder to final-code',
+    message: 'Output folder',
     default: 'dist',
   },
   {

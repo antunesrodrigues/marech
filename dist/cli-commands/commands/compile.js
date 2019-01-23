@@ -34,7 +34,8 @@ var compile = function (commander) {
         var resolvedConfigs = marechal_configs_1.default.resolveConfig(relativeConfigs, workDir);
         var filesLocation = path_1.default.join(workDir, relativeConfigs.input.path);
         var fullFilesLocation = path_1.default.join(filesLocation, relativeConfigs.input.files);
-        var ignoreFiles = { ignore: path_1.default.join(workDir, relativeConfigs.telegs.path, '/**/*.html') };
+        var componetsFiles = path_1.default.join(workDir, relativeConfigs.components.path, '/**/*.html');
+        var ignoreFiles = { ignore: componetsFiles };
         glob_1.default(fullFilesLocation, ignoreFiles, function (err, files) {
             if (err)
                 throw err;
@@ -43,7 +44,7 @@ var compile = function (commander) {
                 var onlyFileName = path_1.default.relative(relativeConfigs.input.path, file);
                 console.info(onlyFileName + " - OK!");
             });
-            console.info("\nOutput: " + relativeConfigs.output);
+            console.info("\nOutput: " + relativeConfigs.output.path);
         });
     });
 };

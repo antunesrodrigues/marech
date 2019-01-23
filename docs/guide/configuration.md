@@ -14,7 +14,9 @@
       "path": "src/marech"
     },
     
-    "output": "dist",
+    "output": {
+      "path": "dist"
+    }
   }
   ```
 
@@ -53,9 +55,9 @@
     
     This property indicates the files to use for _path_. It is based on glob.
 
-- ### Output `Type: String`
-
-  Set the output path (where the rendered and compiled files will be).
+- ### Output
+  - **path** **`Type: String`**
+    Set the output path (where the rendered and compiled files will be).
 
 
 ## Docs

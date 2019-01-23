@@ -42,7 +42,8 @@ const compile = (commander:Command) => {
       const filesLocation = path.join(workDir, relativeConfigs.input.path);
       const fullFilesLocation =  path.join(filesLocation, relativeConfigs.input.files);
 
-      const ignoreFiles = { ignore: path.join(workDir, relativeConfigs.telegs.path, '/**/*.html') };
+      const componetsFiles = path.join(workDir, relativeConfigs.components.path, '/**/*.html');
+      const ignoreFiles = { ignore: componetsFiles };
 
       // Get all files matched by input
       glob(fullFilesLocation, ignoreFiles, (err:any, files:string[]) => {
@@ -58,7 +59,7 @@ const compile = (commander:Command) => {
           console.info(`${onlyFileName} - OK!`);
         });
         // Send output dir
-        console.info(`\nOutput: ${relativeConfigs.output}`);
+        console.info(`\nOutput: ${relativeConfigs.output.path}`);
       });
     });
 };
