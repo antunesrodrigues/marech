@@ -18,6 +18,9 @@ Marech is an HTML precompiler, where you can split your code and print JavaScrip
   marech init
   ```
 
+### Learn
+  Click [here](docs/README.md) to learn how to use.
+
 ### Compile
   ```sh
   # Compile and create final file(s)
