@@ -2,11 +2,10 @@ Marech is an HTML precompiler, where you can split your code and print JavaScrip
 
 
 ## 😎 How to Install
-  Marech is available in the NPM.
-
   ```sh
-  # Install Marech CLI globally
-  npm install marech -g
+  npm install -g marech-cli
+  # or
+  yarn global add marech-cli
   ```
 
 
