@@ -1,7 +1,7 @@
 {
-  "name": "marech",
+  "name": "marech-cli",
   "version": "0.4.3",
-  "description": "Html precompiler",
+  "description": "Command line interface for marech-core",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
