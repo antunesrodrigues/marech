@@ -1,6 +1,6 @@
 {
   "name": "marech-cli",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Command line interface for marech-core",
   "license": "MIT",
   "main": "index.js",
@@ -13,16 +13,16 @@
     "marech": "./dist/bin/marech.js"
   },
   "devDependencies": {
-    "typescript": "^3.2.4",
-    "@types/inquirer": "0.0.43",
     "@types/glob": "^7.1.1",
+    "@types/inquirer": "0.0.43",
     "@types/node": "^10.12.18",
     "tslint": "^5.12.1",
-    "tslint-config-airbnb": "^5.11.1"
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.2.4"
   },
   "dependencies": {
-    "glob": "^7.1.3",
     "commander": "^2.19.0",
+    "glob": "^7.1.3",
     "inquirer": "^6.2.1",
     "marech-core": "^0.3.0"
   },
